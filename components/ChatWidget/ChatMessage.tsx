@@ -3,6 +3,7 @@ import { Message } from '../../lib/types';
 import { PaperAirplaneIcon, XIcon } from '@heroicons/react/outline';
 import io, { Socket } from 'socket.io-client';
 import { sendToSlack } from '../../lib/slackIntegration';
+import Image from 'next/image';
 
 interface Props {
   messages: Message[];
@@ -146,10 +147,12 @@ const ChatMessage: React.FC<Props> = ({ messages, onSendMessage, onClose }) => {
       <div className="h-full flex flex-col bg-gray-800 text-gray-100 rounded-lg shadow-lg overflow-hidden relative">
         <header className="bg-gradient-to-b from-purple-700 via-purple-900 to-transparent text-white p-5 flex items-center justify-between min-h-20 rounded-t-lg">
           <div className="flex items-center">
-            <img
+            <Image
               src="https://cdn-b.saashub.com/images/app/service_logos/222/fik2qfh2md8t/large.png?1665648747"
               alt="Company Logo"
-              className="w-12 h-12 rounded-full"
+              width={48}  // Adjust width and height as needed
+              height={48}
+              className="rounded-full"
             />
             <h1 className="ml-3 text-2xl font-semibold">SuprSend Chat</h1>
           </div>
@@ -209,10 +212,12 @@ const ChatMessage: React.FC<Props> = ({ messages, onSendMessage, onClose }) => {
     <div className="h-full flex flex-col bg-gray-800 text-gray-100 rounded-lg shadow-lg overflow-hidden relative">
       <header className="bg-gradient-to-b from-purple-700 via-purple-900 to-transparent text-white p-5 flex items-center justify-between min-h-20 rounded-t-lg">
         <div className="flex items-center">
-          <img
+          <Image
             src="https://cdn-b.saashub.com/images/app/service_logos/222/fik2qfh2md8t/large.png?1665648747"
             alt="Company Logo"
-            className="w-12 h-12 rounded-full"
+            width={48}  // Adjust width and height as needed
+            height={48}
+            className="rounded-full"
           />
           <h1 className="ml-3 text-2xl font-semibold">SuprSend Chat</h1>
         </div>
@@ -227,15 +232,19 @@ const ChatMessage: React.FC<Props> = ({ messages, onSendMessage, onClose }) => {
 
       <div className="p-4 flex justify-center items-center relative">
         <div className="relative flex">
-          <img
+          <Image
             src="https://randomuser.me/api/portraits/men/1.jpg"
             alt="Agent 1"
-            className="w-14 h-14 rounded-full border-4 border-green-500 relative -right-5"
+            width={56}  // Adjust width and height as needed
+            height={56}
+            className="rounded-full border-4 border-green-500"
           />
-          <img
+          <Image
             src="https://randomuser.me/api/portraits/women/2.jpg"
             alt="Agent 2"
-            className="w-14 h-14 rounded-full border-4 border-green-500 absolute -left-5"
+            width={56}  // Adjust width and height as needed
+            height={56}
+            className="rounded-full border-4 border-green-500"
           />
         </div>
       </div>
@@ -250,10 +259,12 @@ const ChatMessage: React.FC<Props> = ({ messages, onSendMessage, onClose }) => {
                 className={`flex ${msg.sender === 'user' ? 'justify-end' : 'justify-start'} items-start space-x-3 mb-2`}
               >
                 {msg.sender !== 'user' && (
-                  <img
+                  <Image
                     src="https://randomuser.me/api/portraits/men/1.jpg"
                     alt="Sender Avatar"
-                    className="w-12 h-12 rounded-full border-4 border-green-500"
+                    width={48}  // Adjust width and height as needed
+                    height={48}
+                    className="rounded-full border-4 border-green-500"
                   />
                 )}
                 <div
@@ -264,10 +275,12 @@ const ChatMessage: React.FC<Props> = ({ messages, onSendMessage, onClose }) => {
                   <div className="text-base">{msg.text}</div>
                 </div>
                 {msg.sender === 'user' && (
-                  <img
+                  <Image
                     src="https://randomuser.me/api/portraits/women/2.jpg"
                     alt="User Avatar"
-                    className="w-12 h-12 rounded-full border-4 border-green-500"
+                    width={48}  // Adjust width and height as needed
+                    height={48}
+                    className="rounded-full border-4 border-green-500"
                   />
                 )}
               </div>
