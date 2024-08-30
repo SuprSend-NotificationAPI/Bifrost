@@ -1,0 +1,48 @@
+{
+  "name": "bifrost",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+  "dev": "next dev",
+  "build": "next build",
+  "start": "next start"
+},
+
+  "dependencies": {
+    "@emotion/react": "^11.13.3",
+    "@emotion/styled": "^11.13.0",
+    "@fortawesome/fontawesome-free": "^6.6.0",
+    "@heroicons/react": "^1.0.6",
+    "@slack/web-api": "^7.3.4",
+    "@types/socket.io-client": "^3.0.0",
+    "autoprefixer": "^10.4.20",
+    "chart.js": "^4.4.4",
+    "chartjs": "^0.3.24",
+    "framer-motion": "^11.3.30",
+    "next": "14.2.6",
+    "react": "^18.2.0",
+    "react-chartjs-2": "^5.2.0",
+    "react-dom": "^18.2.0",
+    "socket.io": "^4.7.5",
+    "socket.io-client": "^4.7.5",
+    "ws": "^8.18.0"
+  },
+  "devDependencies": {
+    "@types/json-schema": "^7.0.15",
+    "@types/node": "^20",
+    "@types/node-fetch": "^2.6.11",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "@types/socket.io": "^3.0.2",
+    "@types/ws": "^8.5.12",
+    "eslint": "^8",
+    "eslint-config-next": "14.2.6",
+    "postcss": "^8.4.41",
+    "tailwindcss": "^3.4.1",
+    "ts-loader": "^9.5.1",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.5.4",
+    "webpack": "^5.94.0",
+    "webpack-cli": "^5.1.4"
+  }
+}
