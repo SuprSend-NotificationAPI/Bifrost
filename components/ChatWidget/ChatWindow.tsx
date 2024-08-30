@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import ChatMessage from './ChatMessage';
 import { Message } from '../../lib/types';
 import { ChatAlt2Icon, HomeIcon, ChatIcon, ChevronUpIcon } from '@heroicons/react/solid';
+import Image from 'next/image';
+
 
 interface Props {
   messages: Message[];
@@ -53,7 +55,7 @@ const ChatWindow: React.FC<Props> = ({ messages, onSendMessage, onClose }) => {
           <div className="p-4 mx-6 bg-gray-800 rounded-md shadow-inner mt-6">
             <div className="flex items-center space-x-4">
               <div className="w-16 h-16 rounded-lg flex items-center justify-center">
-                <img
+                <Image
                   src="https://cdn-b.saashub.com/images/app/service_logos/222/fik2qfh2md8t/large.png?1665648747"
                   alt="Docs / SuprSend Logo"
                   className="w-full h-full object-cover rounded-lg"

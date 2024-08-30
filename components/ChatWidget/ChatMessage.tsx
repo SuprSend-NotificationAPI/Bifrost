@@ -167,7 +167,7 @@ const ChatMessage: React.FC<Props> = ({ messages, onSendMessage, onClose }) => {
 
         <div className="flex-grow p-8 flex flex-col justify-center items-center bg-gray-900">
           <form onSubmit={handleUserInfoSubmit} className="w-full max-w-lg p-8 bg-gray-700 rounded-lg shadow-lg">
-            <h2 className="text-3xl font-semibold text-gray-100 mb-6 text-center">Let's Get Started</h2>
+          <h2 className="text-3xl font-semibold text-gray-100 mb-6 text-center">Let&apos;s Get Started</h2>
             <div className="mb-6">
               <label htmlFor="name" className="block text-lg font-medium text-gray-300">
                 Name
