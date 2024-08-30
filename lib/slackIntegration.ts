@@ -88,7 +88,8 @@ export const sendToSlack = async (
       body: JSON.stringify(payload),
     });
 
-    const data: SlackResponse = await response.json();
+    const data = await response.json() as SlackResponse;
+
     if (!response.ok || !data.ok) {
       throw new Error(`Slack API error: ${data.error || 'Unknown error'}`);
     }
