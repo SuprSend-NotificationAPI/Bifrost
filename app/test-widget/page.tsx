@@ -5,14 +5,21 @@ import React, { useEffect } from 'react';
 export default function TestWidget() {
   useEffect(() => {
     const script = document.createElement('script');
-    script.src = '/widget.js';
-    script.async = true; // This should not be used if you are managing script loading inside widget.js
-    script.onload = () => console.log('Widget script loaded');
+    script.src = '/_next/static/chunks/widget-bundle.js';
+    script.async = true;
+    script.onload = () => {
+      console.log('Widget script loaded');
+      if (typeof (window as any).initializeBifrostChatWidget === 'function') {
+        (window as any).initializeBifrostChatWidget();
+      } else {
+        console.error('initializeBifrostChatWidget function not found on window object');
+      }
+    };
     script.onerror = () => console.error('Failed to load widget script');
     document.body.appendChild(script);
 
     return () => {
-      document.body.removeChild(script); // Cleanup on component unmount
+      document.body.removeChild(script);
     };
   }, []);
 
