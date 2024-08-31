@@ -59,6 +59,8 @@ const ChatWindow: React.FC<Props> = ({ messages, onSendMessage, onClose }) => {
                   src="https://cdn-b.saashub.com/images/app/service_logos/222/fik2qfh2md8t/large.png?1665648747"
                   alt="Docs / SuprSend Logo"
                   className="w-full h-full object-cover rounded-lg"
+                  width={48}  // Adjust width and height as needed
+                  height={48}
                 />
               </div>
               <div>

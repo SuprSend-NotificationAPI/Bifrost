@@ -1,0 +1,35 @@
+[33mcommit a3031ac2c447a3f0bc0e8deb0a64f651229ba505[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m)[m
+Author: Nikhil <nikhil.kumar@suprsend.com>
+Date:   Fri Aug 30 20:20:58 2024 +0530
+
+    working
+
+[33mcommit a679505895392904c62df56a4a6eaf228d2ccbbc[m
+Author: Nikhil <nikhil.kumar@suprsend.com>
+Date:   Fri Aug 30 14:59:14 2024 +0530
+
+    design
+
+[33mcommit eac834264b0770f4eb86fe1119e44d36f2e20ef9[m
+Author: Nikhil <nikhil.kumar@suprsend.com>
+Date:   Fri Aug 30 14:42:10 2024 +0530
+
+    eslint
+
+[33mcommit 2d3f91ba66e99111fb977800d7c6b2d7a6fd5b62[m
+Author: Nikhil <nikhil.kumar@suprsend.com>
+Date:   Fri Aug 30 14:35:33 2024 +0530
+
+    cs
+
+[33mcommit cb47d229fa31282d4e4ccc09122907f839e7cd8f[m
+Author: Nikhil <nikhil.kumar@suprsend.com>
+Date:   Fri Aug 30 14:30:26 2024 +0530
+
+    ne
+
+[33mcommit 7349d3745b50e6c615b335afc4c18772586c9e1f[m
+Author: Nikhil <nikhil.kumar@suprsend.com>
+Date:   Fri Aug 30 14:13:22 2024 +0530
+
+    Initial commit of my Next.js project

@@ -34,43 +34,48 @@ const ChatMessage: React.FC<Props> = ({ messages, onSendMessage, onClose }) => {
   const [showUserInfoForm, setShowUserInfoForm] = useState(true);
   const [userInfo, setUserInfo] = useState<UserInfo>({ name: '', email: '' });
 
+  // Flag to enable or disable Socket.IO connection
+  const socketEnabled = false;  // Set to true to enable Socket.IO
+
   useEffect(() => {
-    console.log('Initializing Socket.IO connection');
-    const newSocket = io();
-    setSocket(newSocket);
+    if (socketEnabled) {
+      console.log('Initializing Socket.IO connection');
+      const newSocket = io();
+      setSocket(newSocket);
 
-    newSocket.on('connect', () => {
-      console.log('Socket.IO connection established.');
-    });
+      newSocket.on('connect', () => {
+        console.log('Socket.IO connection established.');
+      });
 
-    newSocket.on('disconnect', () => {
-      console.log('Socket.IO connection closed.');
-    });
+      newSocket.on('disconnect', () => {
+        console.log('Socket.IO connection closed.');
+      });
 
-    newSocket.on('error', (error: Error) => {
-      console.error('Socket.IO error:', error);
-    });
+      newSocket.on('error', (error: Error) => {
+        console.error('Socket.IO error:', error);
+      });
 
-    newSocket.on('slack_message', (data: { user: string; text: string; timestamp: string; thread_ts: string }) => {
-      console.log('Received Socket.IO message:', data);
+      newSocket.on('slack_message', (data: { user: string; text: string; timestamp: string; thread_ts: string }) => {
+        console.log('Received Socket.IO message:', data);
 
-      const newMessage: Message = {
-        id: Date.now().toString(),
-        sender: data.user === 'agent' ? 'agent' : 'user',
-        text: data.text,
-        timestamp: new Date(data.timestamp),
-        thread_ts: data.thread_ts,
+        const newMessage: Message = {
+          id: Date.now().toString(),
+          sender: data.user === 'agent' ? 'agent' : 'user',
+          text: data.text,
+          timestamp: new Date(data.timestamp),
+          thread_ts: data.thread_ts,
+        };
+
+        console.log('Adding new message to chat:', newMessage);
+        setChatMessages((prevMessages) => [...prevMessages, newMessage]);
+      });
+
+      return () => {
+        console.log('Closing Socket.IO connection...');
+        newSocket.disconnect();
       };
-
-      console.log('Adding new message to chat:', newMessage);
-      setChatMessages((prevMessages) => [...prevMessages, newMessage]);
-    });
-
-    return () => {
-      console.log('Closing Socket.IO connection...');
-      newSocket.disconnect();
-    };
-  }, []);
+    }
+  }, [socketEnabled]);
 
   useEffect(() => {
     console.log('Chat messages updated:', chatMessages);
