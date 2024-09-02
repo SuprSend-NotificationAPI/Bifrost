@@ -2,7 +2,6 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { Message } from '../../lib/types';
 import { PaperAirplaneIcon, XIcon } from '@heroicons/react/outline';
 import io, { Socket } from 'socket.io-client';
-import { sendToSlack } from '../../lib/slackIntegration';
 import Image from 'next/image';
 
 interface Props {
@@ -149,13 +148,87 @@ const ChatMessage: React.FC<Props> = ({ messages, onSendMessage, onClose }) => {
 
   if (showUserInfoForm) {
     return (
-      <div className="h-full flex flex-col bg-gray-800 text-gray-100 rounded-lg shadow-lg overflow-hidden relative">
-        <header className="bg-gradient-to-b from-purple-700 via-purple-900 to-transparent text-white p-5 flex items-center justify-between min-h-20 rounded-t-lg">
+      <div className="h-full flex flex-col bg-gradient-to-b from-gray-800 via-gray-900 to-black text-gray-100 rounded-lg shadow-xl overflow-hidden relative">
+        {/* Header */}
+        <header className="bg-gradient-to-r from-purple-900 to-indigo-800 p-5 flex items-center justify-between rounded-t-lg">
           <div className="flex items-center">
             <Image
               src="https://cdn-b.saashub.com/images/app/service_logos/222/fik2qfh2md8t/large.png?1665648747"
               alt="Company Logo"
-              width={48}  // Adjust width and height as needed
+              width={48}
+              height={48}
+              className="rounded-full"
+            />
+            <h1 className="ml-3 text-3xl font-bold text-white">SuprSend Chat</h1>
+          </div>
+          <button
+            onClick={onClose}
+            className="p-2 rounded-full hover:bg-gray-700 transition-colors"
+            aria-label="Close chat"
+          >
+            <XIcon className="h-6 w-6 text-white" />
+          </button>
+        </header>
+
+        {/* Content */}
+        <div className="flex-grow p-8 flex flex-col justify-center items-center bg-gray-900">
+          <form onSubmit={handleUserInfoSubmit} className="w-full max-w-lg p-8 bg-gray-800 rounded-lg shadow-lg space-y-6">
+            <h2 className="text-3xl font-semibold text-white mb-6 text-center">Let&apos;s Get Started</h2>
+
+            {/* Name Field */}
+            <div className="mb-6">
+              <label htmlFor="name" className="block text-lg font-medium text-gray-300">
+                Name
+              </label>
+              <input
+                type="text"
+                id="name"
+                value={userInfo.name}
+                onChange={(e) => setUserInfo({ ...userInfo, name: e.target.value })}
+                className="mt-2 block w-full rounded-md border border-gray-600 bg-gray-700 text-gray-200 p-4 shadow-sm focus:border-purple-500 focus:ring-purple-500 transition-transform transform hover:scale-105"
+                placeholder="Enter your name"
+                required
+              />
+            </div>
+
+            {/* Email Field */}
+            <div className="mb-6">
+              <label htmlFor="email" className="block text-lg font-medium text-gray-300">
+                Email
+              </label>
+              <input
+                type="email"
+                id="email"
+                value={userInfo.email}
+                onChange={(e) => setUserInfo({ ...userInfo, email: e.target.value })}
+                className="mt-2 block w-full rounded-md border border-gray-600 bg-gray-700 text-gray-200 p-4 shadow-sm focus:border-purple-500 focus:ring-purple-500 transition-transform transform hover:scale-105"
+                placeholder="Enter your email"
+                required
+              />
+            </div>
+
+            {/* Submit Button */}
+            <button
+              type="submit"
+              className="w-full bg-gradient-to-r from-purple-600 to-indigo-800 text-white py-4 rounded-md text-lg shadow-lg hover:bg-purple-700 transition-all duration-300 transform hover:scale-105"
+            >
+              Start Chat
+            </button>
+          </form>
+        </div>
+      </div>
+    );
+  }
+
+
+  return (
+    <div className="h-full flex flex-col bg-gradient-to-b from-gray-900 via-gray-800 to-black text-gray-100 rounded-lg shadow-xl overflow-hidden relative">
+        <header className="bg-gradient-to-r from-purple-900 to-indigo-800 text-white p-5 flex items-center justify-between min-h-20 rounded-t-lg shadow-md">
+          <div className="flex items-center">
+            <Image
+              src="https://cdn-b.saashub.com/images/app/service_logos/222/fik2qfh2md8t/large.png?1665648747"
+              alt="Company Logo"
+              width={48}
               height={48}
               className="rounded-full"
             />
@@ -170,71 +243,6 @@ const ChatMessage: React.FC<Props> = ({ messages, onSendMessage, onClose }) => {
           </button>
         </header>
 
-        <div className="flex-grow p-8 flex flex-col justify-center items-center bg-gray-900">
-          <form onSubmit={handleUserInfoSubmit} className="w-full max-w-lg p-8 bg-gray-700 rounded-lg shadow-lg">
-          <h2 className="text-3xl font-semibold text-gray-100 mb-6 text-center">Let&apos;s Get Started</h2>
-            <div className="mb-6">
-              <label htmlFor="name" className="block text-lg font-medium text-gray-300">
-                Name
-              </label>
-              <input
-                type="text"
-                id="name"
-                value={userInfo.name}
-                onChange={(e) => setUserInfo({ ...userInfo, name: e.target.value })}
-                className="mt-2 block w-full rounded-md border-gray-600 bg-gray-800 text-gray-200 p-4 shadow-sm focus:border-purple-500 focus:ring-purple-500"
-                placeholder="Enter your name"
-                required
-              />
-            </div>
-            <div className="mb-6">
-              <label htmlFor="email" className="block text-lg font-medium text-gray-300">
-                Email
-              </label>
-              <input
-                type="email"
-                id="email"
-                value={userInfo.email}
-                onChange={(e) => setUserInfo({ ...userInfo, email: e.target.value })}
-                className="mt-2 block w-full rounded-md border-gray-600 bg-gray-800 text-gray-200 p-4 shadow-sm focus:border-purple-500 focus:ring-purple-500"
-                placeholder="Enter your email"
-                required
-              />
-            </div>
-            <button
-              type="submit"
-              className="w-full bg-purple-700 text-white py-4 rounded-md text-lg hover:bg-purple-800 transition-colors"
-            >
-              Start Chat
-            </button>
-          </form>
-        </div>
-      </div>
-    );
-  }
-
-  return (
-    <div className="h-full flex flex-col bg-gray-800 text-gray-100 rounded-lg shadow-lg overflow-hidden relative">
-      <header className="bg-gradient-to-b from-purple-700 via-purple-900 to-transparent text-white p-5 flex items-center justify-between min-h-20 rounded-t-lg">
-        <div className="flex items-center">
-          <Image
-            src="https://cdn-b.saashub.com/images/app/service_logos/222/fik2qfh2md8t/large.png?1665648747"
-            alt="Company Logo"
-            width={48}  // Adjust width and height as needed
-            height={48}
-            className="rounded-full"
-          />
-          <h1 className="ml-3 text-2xl font-semibold">SuprSend Chat</h1>
-        </div>
-        <button
-          onClick={onClose}
-          className="p-2 rounded-full hover:bg-gray-700 transition-colors"
-          aria-label="Close chat"
-        >
-          <XIcon className="h-6 w-6 text-white" />
-        </button>
-      </header>
-
       <div className="p-4 flex justify-center items-center relative">
         <div className="relative flex">
           <Image
@@ -243,6 +251,7 @@ const ChatMessage: React.FC<Props> = ({ messages, onSendMessage, onClose }) => {
             width={56}  // Adjust width and height as needed
             height={56}
             className="rounded-full border-4 border-green-500"
+
           />
           <Image
             src="https://randomuser.me/api/portraits/women/2.jpg"
@@ -250,6 +259,7 @@ const ChatMessage: React.FC<Props> = ({ messages, onSendMessage, onClose }) => {
             width={56}  // Adjust width and height as needed
             height={56}
             className="rounded-full border-4 border-green-500"
+
           />
         </div>
       </div>
@@ -294,24 +304,26 @@ const ChatMessage: React.FC<Props> = ({ messages, onSendMessage, onClose }) => {
         ))}
       </div>
 
-      <div className="p-4 border-t border-gray-600 flex items-center bg-gray-800">
-        <input
-          type="text"
-          value={inputValue}
-          onChange={(e) => setInputValue(e.target.value)}
-          onKeyPress={(e) => e.key === 'Enter' && handleSend()}
-          className="flex-grow p-3 rounded-full border border-gray-600 bg-gray-700 text-gray-200 placeholder-gray-400"
-          placeholder="Type your message..."
-        />
-        <button
-          onClick={handleSend}
-          className="ml-2 bg-purple-700 text-white p-3 rounded-full hover:bg-purple-800 transition-colors"
-        >
-          <PaperAirplaneIcon className="h-6 w-6" />
-        </button>
+      <div className="p-4 border-t border-gray-600 flex items-center bg-gray-900 rounded-b-lg">
+          <input
+            type="text"
+            value={inputValue}
+            onChange={(e) => setInputValue(e.target.value)}
+            onKeyPress={(e) => e.key === 'Enter' && handleSend()}
+            className="flex-grow p-3 rounded-full border border-gray-600 bg-gray-800 text-gray-200 placeholder-gray-400 focus:ring-2 focus:ring-purple-500 transition-transform transform hover:scale-101"
+            placeholder="Type your message..."
+          />
+          <button
+            onClick={handleSend}
+            className="ml-2 bg-gradient-to-r from-purple-600 to-indigo-700 text-white p-3 rounded-full hover:bg-gradient-to-l hover:from-purple-700 hover:to-indigo-800 transition-all duration-300 transform hover:scale-105"
+          >
+            <PaperAirplaneIcon className="h-6 w-6" />
+          </button>
+        </div>
       </div>
-    </div>
-  );
-};
+    );
+  }
+
+
 
 export default ChatMessage;
