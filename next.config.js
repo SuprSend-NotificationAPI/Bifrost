@@ -19,6 +19,7 @@ const nextConfig = (phase, { defaultConfig }) => {
           pathname: '/**',
         },
       ],
+    },
 
     webpack: (config, { isServer, webpack }) => {
       // Use different devtool configurations for development and production
@@ -29,12 +30,12 @@ const nextConfig = (phase, { defaultConfig }) => {
         : 'eval-source-map';
 
       if (!isServer) {
-        // 1. Minification/Optimization - Disable certain optimizations for debugging
+        // Minification/Optimization - Disable certain optimizations for debugging
         config.optimization.minimize = false; // Disable minification for debugging
         config.optimization.concatenateModules = false; // Disable module concatenation
         config.optimization.splitChunks = false; // Disable code splitting
 
-        // 2. Ensure the widget entry point is included
+        // Ensure the widget entry point is included
         const originalEntry = config.entry;
         config.entry = async () => {
           const entries = await originalEntry();
@@ -47,7 +48,7 @@ const nextConfig = (phase, { defaultConfig }) => {
           return entries;
         };
 
-        // 3. Output Configuration - Expose the widget as a global library
+        // Output Configuration - Expose the widget as a global library
         config.output.library = {
           name: 'MyWidget',
           type: 'window', // or 'umd' for broader compatibility
@@ -66,7 +67,7 @@ const nextConfig = (phase, { defaultConfig }) => {
           };
         }
 
-        // 4. Filename/Path - Ensure correct file naming for cache busting
+        // Filename/Path - Ensure correct file naming for cache busting
         config.output.filename = (pathData) => {
           return pathData.chunk.name === 'widget-bundle'
             ? `static/chunks/[name].js?v=${BUILD_ID}`
@@ -82,9 +83,7 @@ const nextConfig = (phase, { defaultConfig }) => {
 
       return config;
     },
-  },
+  };
 };
 
 module.exports = nextConfig;
-
-}
