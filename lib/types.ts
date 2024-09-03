@@ -17,3 +17,10 @@ export interface Message {
     startTime: Date;
     endTime?: Date;
   }
+
+  // Define and export the ChatWindowProps interface
+  export interface ChatWindowProps {
+    messages: Message[];
+    onSendMessage: (text: string) => void;
+    onClose: () => void;
+  }

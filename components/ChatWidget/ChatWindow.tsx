@@ -5,7 +5,7 @@ import { ChatAlt2Icon, HomeIcon, ChatIcon, ChevronUpIcon } from '@heroicons/reac
 import Image from 'next/image';
 
 
-interface Props {
+export interface Props {
   messages: Message[];
   onSendMessage: (text: string) => void;
   onClose: () => void;

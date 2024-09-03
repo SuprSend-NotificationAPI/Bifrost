@@ -31,8 +31,8 @@ const nextConfig = (phase, { defaultConfig }) => {
 
       if (!isServer) {
         // Minification/Optimization - Disable certain optimizations for debugging
-        config.optimization.minimize = false; // Disable minification for debugging
-        config.optimization.concatenateModules = false; // Disable module concatenation
+        config.optimization.minimize = true; // Disable minification for debugging
+        config.optimization.concatenateModules = true; // Disable module concatenation
         config.optimization.splitChunks = false; // Disable code splitting
 
         // Ensure the widget entry point is included
@@ -50,8 +50,8 @@ const nextConfig = (phase, { defaultConfig }) => {
 
         // Output Configuration - Expose the widget as a global library
         config.output.library = {
-          name: 'MyWidget',
-          type: 'window', // or 'umd' for broader compatibility
+          name: 'BifrostChatWidget',
+          type: 'umd', // or 'umd' for broader compatibility
         };
 
         // Ensure the split chunks configuration is set up (only if you re-enable splitChunks)
